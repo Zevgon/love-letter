@@ -14,11 +14,10 @@ export default class HomeScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => navigate('CreateGame')}
-            style={styles.button}
             title="Create"
           />
           <Button
-            style={styles.button}
+            onPress={() => navigate('JoinGame')}
             title="Join"
           />
         </View>

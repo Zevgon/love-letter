@@ -3,20 +3,32 @@ import PropTypes from 'prop-types';
 import { View, Button, Text, TextInput } from 'react-native';
 import styles from './styles';
 
-export default class CreateGameScreen extends React.Component {
+export default class JoinGameScreen extends React.Component {
   static navigationOptions = {
-    title: 'Create Game',
+    title: 'Join Game',
   };
   constructor(props) {
     super(props);
     this.state = {
       name: '',
+      room: '',
     };
   }
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
+        <View style={styles.inlineContainer}>
+          <Text>
+            Room:
+          </Text>
+          <TextInput
+            multiline={false}
+            onChangeText={(room) => this.setState({ room })}
+            value={this.state.room}
+            style={styles.textField}
+          />
+        </View>
         <View style={styles.inlineContainer}>
           <Text>
             Name:
@@ -32,7 +44,7 @@ export default class CreateGameScreen extends React.Component {
 
           <Button
             onPress={() => navigate('Game')}
-            title="Create"
+            title="Join"
           />
         </View>
       </View>
@@ -40,7 +52,7 @@ export default class CreateGameScreen extends React.Component {
   }
 }
 
-CreateGameScreen.propTypes = {
+JoinGameScreen.propTypes = {
   navigation: PropTypes.object,
   navigate: PropTypes.func,
 };
