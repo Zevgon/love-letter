@@ -26,4 +26,8 @@ export default class Player {
   shuffle() {
     this.cards = shuffle(this.cards);
   }
+
+  shiftCard() {
+    return this.cards.shift();
+  }
 }
