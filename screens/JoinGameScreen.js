@@ -7,6 +7,7 @@ import styles from './styles';
 export default class JoinGameScreen extends React.Component {
   static navigationOptions = {
     title: 'Join Game',
+    headerStyle: { display: 'none' },
   };
   constructor(props) {
     super(props);

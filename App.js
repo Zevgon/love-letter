@@ -22,8 +22,8 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <Navigator />
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+          <Navigator style={{ backgroundColor: '#fff' }} />
         </View>
       </Provider>
     );

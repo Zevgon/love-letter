@@ -9,6 +9,7 @@ import styles from './styles';
 class CreateGameScreen extends React.Component {
   static navigationOptions = {
     title: 'Create Game',
+    headerStyle: { display: 'none' },
   };
 
   constructor(props) {
