@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Text, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
+import { Button } from 'react-native-elements';
 import styles from './styles';
 
 export default class JoinGameScreen extends React.Component {

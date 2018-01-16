@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
 import styles from './styles';
 
 export default class HomeScreen extends React.Component {
@@ -10,8 +11,8 @@ export default class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
-        <View style={styles.buttonContainer}>
+      <View style={styles.screen}>
+        <View>
           <Button
             onPress={() => navigate('CreateGame')}
             title="Create"

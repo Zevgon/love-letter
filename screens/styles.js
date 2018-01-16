@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#666',
   },
   title: {
     flex: 1,
@@ -12,6 +11,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     margin: 20,
+    justifyContent: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     fontSize: 18,
+  },
+  navBar: {
+    backgroundColor: 'transparent',
   },
 });
 
