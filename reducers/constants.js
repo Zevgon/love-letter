@@ -1,0 +1,1 @@
+export const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';

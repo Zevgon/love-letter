@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { receivePlayers } from '../reducers/actions';
 import styles from './styles';
 
-export default class CreateGameScreen extends React.Component {
+class CreateGameScreen extends React.Component {
   static navigationOptions = {
     title: 'Create Game',
     headerStyle: { display: 'none' },
@@ -31,11 +33,21 @@ export default class CreateGameScreen extends React.Component {
           />
         </View>
         <View style={styles.buttonContainer}>
-
           <Button
             onPress={() => navigate('Game')}
             title="Create"
           />
+          <View>
+            <Button
+              onPress={() => this.props.dispatch(receivePlayers(['Player 1', 'Player 2', 'Player 3']))}
+              title="Test redux"
+            />
+            {this.props.players.map((player) => (
+              <Text key={player}>
+                {player}
+              </Text>
+            ))}
+          </View>
         </View>
       </View>
     );
@@ -46,3 +58,9 @@ CreateGameScreen.propTypes = {
   navigation: PropTypes.object,
   navigate: PropTypes.func,
 };
+
+const mapStateToProps = (state) => ({
+  players: state.players,
+});
+
+export default connect(mapStateToProps)(CreateGameScreen);
