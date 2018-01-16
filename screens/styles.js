@@ -3,20 +3,23 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   title: {
-    flex: 1,
-    fontSize: 30,
+    fontSize: 42,
+    fontFamily: 'Avenir',
   },
   screen: {
     flex: 1,
-    margin: 20,
+    padding: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    flex: 8,
+    margin: 20,
   },
   inlineContainer: {
     flexDirection: 'row',
@@ -35,6 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     fontSize: 18,
+    margin: 10,
   },
   navBar: {
     backgroundColor: 'transparent',
