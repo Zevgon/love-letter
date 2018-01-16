@@ -3,21 +3,35 @@ import PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { receivePlayers } from '../reducers/actions';
+import { addPlayer } from '../reducers/actions';
 import styles from './styles';
 
 class CreateGameScreen extends React.Component {
   static navigationOptions = {
     title: 'Create Game',
   };
+
   constructor(props) {
     super(props);
     this.state = {
       name: '',
+      error: null,
     };
   }
+
+  handleCreate = () => {
+    if (!this.state.name) {
+      this.setState({
+        error: 'Must specify name before creating game',
+      });
+      return;
+    }
+
+    this.props.dispatch(addPlayer(this.state.name));
+    this.props.navigation.navigate('WaitingRoom');
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
         <View style={styles.inlineContainer}>
@@ -26,27 +40,21 @@ class CreateGameScreen extends React.Component {
           </Text>
           <TextInput
             multiline={false}
-            onChangeText={(name) => this.setState({ name })}
+            onChangeText={(name) => this.setState({ name, error: null })}
             value={this.state.name}
             style={styles.textField}
           />
         </View>
+        <View>
+          <Text>
+            {this.state.error && this.state.error}
+          </Text>
+        </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => navigate('Game')}
+            onPress={this.handleCreate}
             title="Create"
           />
-          <View>
-            <Button
-              onPress={() => this.props.dispatch(receivePlayers(['Player 1', 'Player 2', 'Player 3']))}
-              title="Test redux"
-            />
-            {this.props.players.map((player) => (
-              <Text key={player}>
-                {player}
-              </Text>
-            ))}
-          </View>
         </View>
       </View>
     );
