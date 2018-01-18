@@ -98,7 +98,7 @@
   dependencies:
     cross-spawn "^5.1.0"
 
-"@expo/vector-icons@^6.2.0":
+"@expo/vector-icons@^6.2.2":
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-6.2.2.tgz#441edb58a52c0f4e5b4aba1e6f8da1e87cea7e11"
   dependencies:
@@ -2270,11 +2270,11 @@ expect@^21.2.1:
     jest-message-util "^21.2.1"
     jest-regex-util "^21.2.0"
 
-expo@^23.0.4:
-  version "23.0.6"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-23.0.6.tgz#8cb2c3992b385eb5866cc91f25f159420258d19a"
+expo@^24.0.2:
+  version "24.0.2"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-24.0.2.tgz#3ff9784afd9efbb8eb739289aa53290ddf31a5a5"
   dependencies:
-    "@expo/vector-icons" "^6.2.0"
+    "@expo/vector-icons" "^6.2.2"
     babel-preset-expo "^4.0.0"
     fbemitter "^2.1.1"
     invariant "^2.2.2"

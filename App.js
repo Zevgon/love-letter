@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { Font } from 'expo';
 import rootReducer from './reducers/index';
 import HomeScreen from './screens/HomeScreen';
 import CreateGameScreen from './screens/CreateGameScreen';
@@ -19,8 +20,22 @@ export const Navigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+    };
+  }
+  async componentWillMount() {
+    await Font.loadAsync({
+      cortado: require('./assets/fonts/cortado.otf'),
+    });
+    this.setState({
+      loading: false,
+    });
+  }
   render() {
-    return (
+    return !this.state.loading && (
       <Provider store={store}>
         <View style={{ backgroundColor: '#fff', flex: 1 }}>
           <Navigator style={{ backgroundColor: '#fff' }} />

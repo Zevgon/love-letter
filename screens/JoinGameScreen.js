@@ -20,6 +20,7 @@ export default class JoinGameScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
+        <Text style={styles.subtitle}>Join Game</Text>
         <View style={styles.inlineContainer}>
           <Text>
             Room:
@@ -43,10 +44,14 @@ export default class JoinGameScreen extends React.Component {
           />
         </View>
         <View style={styles.buttonContainer}>
-
           <Button
-            onPress={() => navigate('Game')}
+            onPress={() => this.props.dispatch(receivePlayers[this.state.name])}
+            borderRadius={5}
+            containerViewStyle={{ borderRadius: 5 }}
+            outline
+            color="#000"
             title="Join"
+            backgroundColor="#FFFFFF"
           />
         </View>
       </View>

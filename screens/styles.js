@@ -6,15 +6,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 42,
+    fontSize: 60,
+    fontFamily: 'cortado',
+    backgroundColor: 'transparent',
+  },
+  imageContainer: {
+    width: '100%',
+    height: '25%',
+  },
+  image: {
+    width: '100%',
+  },
+  subtitle: {
+    fontSize: 36,
     fontFamily: 'Avenir',
   },
   screen: {
     flex: 1,
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#eee',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -23,16 +34,17 @@ const styles = StyleSheet.create({
   },
   inlineContainer: {
     flexDirection: 'row',
-    flex: 1,
     alignItems: 'center',
   },
   textField: {
     backgroundColor: '#fff',
     fontSize: 18,
     padding: 5,
-    flex: 8,
     margin: 10,
+    flex: 1,
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#000',
   },
   button: {
     borderRadius: 5,
@@ -42,6 +54,20 @@ const styles = StyleSheet.create({
   },
   navBar: {
     backgroundColor: 'transparent',
+  },
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'transparent',
+  },
+  backgroundCircle: {
+    position: 'absolute',
+    borderColor: '#ff0000',
+    borderWidth: 3,
+    backgroundColor: '#ffbbbb',
   },
 });
 

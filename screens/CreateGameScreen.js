@@ -8,7 +8,6 @@ import styles from './styles';
 
 class CreateGameScreen extends React.Component {
   static navigationOptions = {
-    title: 'Create Game',
     headerStyle: { display: 'none' },
   };
   constructor(props) {
@@ -21,6 +20,7 @@ class CreateGameScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
+        <Text style={styles.subtitle}>Create Game</Text>
         <View style={styles.inlineContainer}>
           <Text>
             Name:
@@ -34,10 +34,15 @@ class CreateGameScreen extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => navigate('Game')}
+            onPress={() => this.props.dispatch(receivePlayers[this.state.name])}
+            borderRadius={5}
+            containerViewStyle={{ borderRadius: 5 }}
+            outline
+            color="#000"
             title="Create"
+            backgroundColor="#FFFFFF"
           />
-          <View>
+          {/* <View>
             <Button
               onPress={() => this.props.dispatch(receivePlayers(['Player 1', 'Player 2', 'Player 3']))}
               title="Test redux"
@@ -47,7 +52,7 @@ class CreateGameScreen extends React.Component {
                 {player}
               </Text>
             ))}
-          </View>
+          </View> */}
         </View>
       </View>
     );
