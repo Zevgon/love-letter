@@ -10,29 +10,15 @@ export default class HomeScreen extends React.Component {
     headerStyle: { display: 'none' },
   };
 
-  state = {
-    top: 0,
-    left: 0,
-  };
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({ top: Math.random() * 100, left: Math.random() * 100 });
-    }, 3000);
-  }
-
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
         <View style={styles.background}>
-          <BackgroundCircle
-            top={`${this.state.top}%`}
-            left={`${this.state.left}%`}
-          />
+          <BackgroundCircle />
         </View>
         <Text style={styles.title}>
-          Love Letter
+          Love Letter1
         </Text>
         <View style={styles.buttonContainer}>
           <Button

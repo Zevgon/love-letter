@@ -8,56 +8,82 @@ export default class BackgroundCircle extends React.Component {
     size: new Animated.Value(26),
     borderRadius: new Animated.Value(13),
     margin: new Animated.Value(-13),
+    top: '50%',
+    left: '50%',
   };
 
   componentDidMount() {
     this.restartAnimations();
   }
 
-  componentWillReceiveProps() {
-    this.restartAnimations();
+  resetStyle = () => {
+    this.setState({
+      top: `${(Math.random() * 100).toFixed(0)}%`,
+      left: `${(Math.random() * 100).toFixed(0)}%`,
+      fadeAnim: new Animated.Value(0.5),
+      size: new Animated.Value(26),
+      borderRadius: new Animated.Value(13),
+      margin: new Animated.Value(-13),
+    });
   }
 
-  restartAnimations() {
+  restartAnimations = () => {
     const finalSize = (Math.random() * 100) + 50;
-    Animated.timing(
-      this.state.fadeAnim,
-      {
-        toValue: 0,
-        duration: 3000,
-      },
-    ).start();
-    Animated.timing(
-      this.state.size,
-      {
-        toValue: finalSize,
-        duration: 3000,
-      },
-    ).start();
-    Animated.timing(
-      this.state.borderRadius,
-      {
-        toValue: (finalSize / 2),
-        duration: 3000,
-      },
-    ).start();
-    Animated.timing(
-      this.state.margin,
-      {
-        toValue: -(finalSize / 2),
-        duration: 3000,
-      },
-    ).start();
+    Animated.parallel([
+      Animated.timing(
+        this.state.fadeAnim,
+        {
+          toValue: 0,
+          duration: 3000,
+        },
+      ),
+      Animated.timing(
+        this.state.size,
+        {
+          toValue: finalSize,
+          duration: 3000,
+        },
+      ),
+      Animated.timing(
+        this.state.borderRadius,
+        {
+          toValue: (finalSize / 2),
+          duration: 3000,
+        },
+      ),
+      Animated.timing(
+        this.state.margin,
+        {
+          toValue: -(finalSize / 2),
+          duration: 3000,
+        },
+      ),
+    ]).start(() => {
+      this.resetStyle();
+      this.restartAnimations();
+    });
   }
 
   render() {
     const {
-      fadeAnim, size, borderRadius, margin,
+      fadeAnim,
+      size,
+      borderRadius,
+      margin,
+      top,
+      left
     } = this.state;
     return (
       <Animated.View
-        style={[styles.backgroundCircle, this.props, {
-          opacity: fadeAnim, height: size, width: size, borderRadius, marginLeft: margin, marginTop: margin,
+        style={[styles.backgroundCircle, {
+          opacity: fadeAnim,
+          height: size,
+          width: size,
+          borderRadius,
+          marginLeft: margin,
+          marginTop: margin,
+          top,
+          left,
         }]}
       />
     );
