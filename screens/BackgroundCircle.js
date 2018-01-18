@@ -14,7 +14,7 @@ export default class BackgroundCircle extends React.Component {
     this.restartAnimations();
   }
 
-  componentDidReceiveProps() {
+  componentWillReceiveProps() {
     this.restartAnimations();
   }
 
