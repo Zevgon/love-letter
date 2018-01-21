@@ -11,6 +11,11 @@ socket.on('gameCreated', (gameData) => {
   store.dispatch(receiveGameData(gameData));
 });
 
+socket.on('gameChange', (gameData) => {
+  console.log(gameData);
+  store.dispatch(receiveGameData(gameData));
+});
+
 socket.on('playersChange', (newPlayers) => {
   store.dispatch(receivePlayers(newPlayers));
 });
