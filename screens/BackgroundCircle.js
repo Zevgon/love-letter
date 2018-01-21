@@ -2,12 +2,16 @@ import React from 'react';
 import { Animated } from 'react-native';
 import styles from './styles';
 
+const createAnimVals = () => ({
+  fadeAnim: new Animated.Value(0.5),
+  size: new Animated.Value(26),
+  borderRadius: new Animated.Value(13),
+  margin: new Animated.Value(-13),
+});
+
 export default class BackgroundCircle extends React.Component {
   state = {
-    fadeAnim: new Animated.Value(0.5),
-    size: new Animated.Value(26),
-    borderRadius: new Animated.Value(13),
-    margin: new Animated.Value(-13),
+    ...createAnimVals(),
     top: '50%',
     left: '50%',
   };
@@ -20,10 +24,7 @@ export default class BackgroundCircle extends React.Component {
     this.setState({
       top: `${(Math.random() * 100).toFixed(0)}%`,
       left: `${(Math.random() * 100).toFixed(0)}%`,
-      fadeAnim: new Animated.Value(0.5),
-      size: new Animated.Value(26),
-      borderRadius: new Animated.Value(13),
-      margin: new Animated.Value(-13),
+      ...createAnimVals(),
     });
   }
 
@@ -71,7 +72,7 @@ export default class BackgroundCircle extends React.Component {
       borderRadius,
       margin,
       top,
-      left
+      left,
     } = this.state;
     return (
       <Animated.View

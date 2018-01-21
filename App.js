@@ -26,6 +26,7 @@ export default class App extends React.Component {
       loading: true,
     };
   }
+
   async componentWillMount() {
     await Font.loadAsync({
       cortado: require('./assets/fonts/cortado.otf'),
@@ -34,6 +35,7 @@ export default class App extends React.Component {
       loading: false,
     });
   }
+
   render() {
     return !this.state.loading && (
       <Provider store={store}>

@@ -1,2 +1,3 @@
 export const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 export const ADD_PLAYER = 'ADD_PLAYER';
+export const RECEIVE_GAME_ID = 'RECEIVE_GAME_ID';
