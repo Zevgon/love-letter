@@ -32,7 +32,7 @@ class JoinGameScreen extends React.Component {
       return;
     }
 
-    socket.emit('join', { id: this.state.gameIdInput });
+    socket.emit('join', { id: this.state.gameIdInput, name: this.state.name });
     this.props.navigation.navigate('WaitingRoom');
   }
   render() {

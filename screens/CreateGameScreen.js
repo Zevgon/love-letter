@@ -30,7 +30,7 @@ class CreateGameScreen extends React.Component {
       return;
     }
 
-    socket.emit('create');
+    socket.emit('create', this.state.name);
     this.props.navigation.navigate('WaitingRoom');
   }
 

@@ -1,26 +1,14 @@
 import _ from 'lodash';
 import { combineReducers } from 'redux';
 import {
-  RECEIVE_PLAYERS,
-  ADD_PLAYER,
-  RECEIVE_GAME_DATA,
+  RECEIVE_GAME_STATS,
 } from './constants';
 
-const playerReducer = (state = [], action) => {
+const gameReducer = (state = { id: null, players: [], status: null }, action) => {
+  console.log(action.gameStats);
   switch (action.type) {
-    case RECEIVE_PLAYERS:
-      return action.players;
-    case ADD_PLAYER:
-      return state.concat([action.newPlayer]);
-    default:
-      return state;
-  }
-};
-
-const gameReducer = (state = {}, action) => {
-  switch (action.type) {
-    case RECEIVE_GAME_DATA:
-      return _.merge({}, state, action.gameData);
+    case RECEIVE_GAME_STATS:
+      return _.merge({}, state, action.gameStats);
     default:
       return state;
   }
@@ -28,6 +16,5 @@ const gameReducer = (state = {}, action) => {
 
 
 export default combineReducers({
-  players: playerReducer,
   game: gameReducer,
 });

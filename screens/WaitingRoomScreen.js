@@ -10,12 +10,13 @@ class WaitingRoomScreen extends React.Component {
   };
   render() {
     const { navigate } = this.props.navigation;
+    const { id, status, players } = this.props.game;
     return (
       <View style={styles.screen}>
         <Text style={[styles.title, styles.largeMarginBottom]}>
-          {this.props.game ? this.props.game.id : null}
+          {id}
         </Text>
-        {this.props.players.map((player) => (
+        {players.map((player) => (
           <Text style={[styles.contentMedium, styles.marginSmall]} key={player.id}>
             {player.name}
           </Text>
@@ -28,7 +29,7 @@ class WaitingRoomScreen extends React.Component {
             backgroundColor="transparent"
             fontSize={26}
             fontFamily="essonnes"
-            disabled={this.props.players.length < 2}
+            disabled={players.length < 2}
             disabledStyle={styles.disabledStyle}
           />
         </View>
@@ -37,8 +38,8 @@ class WaitingRoomScreen extends React.Component {
   }
 }
 
+
 const mapStateToProps = (state) => ({
-  players: state.players,
   game: state.game,
 });
 
