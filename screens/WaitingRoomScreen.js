@@ -13,7 +13,7 @@ class WaitingRoomScreen extends React.Component {
     return (
       <View style={styles.screen}>
         <Text style={[styles.subtitle, styles.largeMarginBottom]}>
-          7865
+          {this.props.game.gameData ? this.props.game.gameData.gameId : null}
         </Text>
         {this.props.players.map((player) => (
           <Text style={[styles.contentMedium, styles.marginSmall]} key={player.id}>
@@ -39,6 +39,7 @@ class WaitingRoomScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   players: state.players,
+  game: state.game,
 });
 
 export default connect(mapStateToProps)(WaitingRoomScreen);
