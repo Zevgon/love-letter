@@ -24,15 +24,15 @@ class JoinGameScreen extends React.Component {
         error: 'Must specify name before joining game',
       });
       return;
-    } else if (!this.props.game.gameData.gameId) {
+    } else if (!this.props.game.id) {
       this.setState({
         error: 'Must specify room before joining game',
       });
       return;
     }
 
-    console.log(this.props.game.gameData.gameId);
-    socket.emit('join', { id: this.props.game.gameData.gameId });
+    console.log(this.props.game.id);
+    socket.emit('join', { id: this.props.game.id });
     this.props.navigation.navigate('WaitingRoom');
   }
   render() {
@@ -45,7 +45,7 @@ class JoinGameScreen extends React.Component {
             <TextInput
               multiline={false}
               onChangeText={(room) => this.setState({ room, error: null })}
-              value={this.props.game.gameData.gameId}
+              value={this.props.game.id}
               style={styles.textField}
               placeholder="Room # (four digits)."
             />

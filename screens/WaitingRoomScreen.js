@@ -13,7 +13,7 @@ class WaitingRoomScreen extends React.Component {
     return (
       <View style={styles.screen}>
         <Text style={[styles.subtitle, styles.largeMarginBottom]}>
-          {this.props.game.gameData ? this.props.game.gameData.gameId : null}
+          {this.props.game ? this.props.game.id : null}
         </Text>
         {this.props.players.map((player) => (
           <Text style={[styles.contentMedium, styles.marginSmall]} key={player.id}>
