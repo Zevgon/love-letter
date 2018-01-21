@@ -29,6 +29,7 @@
     "eslint": "^4.15.0",
     "expo": "^24.0.2",
     "global": "^4.3.2",
+    "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.3",

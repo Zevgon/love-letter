@@ -1,7 +1,7 @@
 import {
   RECEIVE_PLAYERS,
   ADD_PLAYER,
-  RECEIVE_GAME_ID,
+  RECEIVE_GAME_DATA,
 } from './constants';
 
 export const receivePlayers = (players) => ({
@@ -14,7 +14,7 @@ export const addPlayer = (newPlayer) => ({
   newPlayer,
 });
 
-export const receiveGameId = (gameId) => ({
-  type: RECEIVE_GAME_ID,
-  gameId,
+export const receiveGameData = (gameData) => ({
+  type: RECEIVE_GAME_DATA,
+  gameData,
 });

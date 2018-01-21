@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import socket from '../socket';
 import {
   addPlayer,
-  receiveGameId,
 } from '../reducers/actions';
 import styles from './styles';
 
@@ -20,9 +20,6 @@ class CreateGameScreen extends React.Component {
       name: '',
       error: null,
     };
-    this.props.socket.onmessage('receiveGameId', (gameId) => {
-      this.props.dispatch(receiveGameId(gameId));
-    });
   }
 
   handleCreate = () => {
@@ -34,12 +31,11 @@ class CreateGameScreen extends React.Component {
     }
 
     this.props.dispatch(addPlayer(this.state.name));
-    this.props.socket.emit('create');
+    socket.emit('create');
     this.props.navigation.navigate('WaitingRoom');
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
         <Text style={styles.subtitle}>Create Game.</Text>
@@ -89,7 +85,7 @@ CreateGameScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   players: state.players,
-  socket: state.socket,
+  game: state.game,
 });
 
 export default connect(mapStateToProps)(CreateGameScreen);
