@@ -14,6 +14,7 @@ export default class JoinGameScreen extends React.Component {
     this.state = {
       name: '',
       room: '',
+      error: null,
     };
   }
   render() {
@@ -21,37 +22,43 @@ export default class JoinGameScreen extends React.Component {
     return (
       <View style={styles.screen}>
         <Text style={styles.subtitle}>Join Game</Text>
-        <View style={styles.inlineContainer}>
-          <Text>
-            Room:
-          </Text>
-          <TextInput
-            multiline={false}
-            onChangeText={(room) => this.setState({ room })}
-            value={this.state.room}
-            style={styles.textField}
-          />
+        <View style={[styles.textFieldsBlock, styles.largeMargin]}>
+          <View style={[styles.textFieldContainer, styles.largeMarginBottom]}>
+            <TextInput
+              multiline={false}
+              onChangeText={(room) => this.setState({ room, error: null })}
+              value={this.state.room}
+              style={styles.textField}
+              placeholder="What's the room code?"
+            />
+          </View>
+          <View style={styles.textFieldContainer}>
+            <TextInput
+              multiline={false}
+              onChangeText={(name) => this.setState({ name, error: null })}
+              value={this.state.name}
+              style={styles.textField}
+              placeholder="What's your name?"
+            />
+          </View>
         </View>
-        <View style={styles.inlineContainer}>
-          <Text>
-            Name:
-          </Text>
-          <TextInput
-            multiline={false}
-            onChangeText={(name) => this.setState({ name })}
-            value={this.state.name}
-            style={styles.textField}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
+
+        <View style={styles.wideButtonContainer}>
           <Button
             onPress={() => this.props.dispatch(receivePlayers[this.state.name])}
-            borderRadius={5}
-            containerViewStyle={{ borderRadius: 5 }}
-            outline
             color="#000"
-            title="Join"
-            backgroundColor="#FFFFFF"
+            title="Join."
+            backgroundColor="transparent"
+            fontSize={26}
+            fontFamily="essonnes"
+          />
+          <Button
+            onPress={() => this.props.navigation.goBack(null)}
+            color="#000"
+            title="Back."
+            backgroundColor="transparent"
+            fontSize={26}
+            fontFamily="essonnes"
           />
         </View>
       </View>

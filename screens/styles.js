@@ -6,9 +6,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 60,
-    fontFamily: 'cortado',
+    fontSize: 54,
     backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'essonnes',
+  },
+  content: {
+    fontSize: 18,
+    fontFamily: 'essonnes',
   },
   imageContainer: {
     width: '100%',
@@ -19,7 +25,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 36,
-    fontFamily: 'Avenir',
+    fontFamily: 'essonnes',
   },
   screen: {
     flex: 1,
@@ -28,23 +34,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
     margin: 20,
+    width: '70%',
+  },
+  wideButtonContainer: {
+    alignItems: 'flex-start',
+    width: '70%',
+  },
+  errorContainer: {
+    margin: 10,
   },
   inlineContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '80%',
+  },
+  textFieldContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '80%',
   },
   textField: {
-    backgroundColor: '#fff',
-    fontSize: 18,
+    backgroundColor: 'transparent',
+    fontSize: 22,
+    fontFamily: 'essonnes',
     padding: 5,
-    margin: 10,
     flex: 1,
-    borderRadius: 5,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#000',
+  },
+  largeMargin: {
+    margin: 30,
+  },
+  largeMarginBottom: {
+    marginBottom: 30,
   },
   button: {
     borderRadius: 5,

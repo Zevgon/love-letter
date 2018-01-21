@@ -14,30 +14,25 @@ export default class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
-        <View style={styles.background}>
-          <BackgroundCircle />
-        </View>
         <Text style={styles.title}>
-          Love Letter1
+          Love Letter.
         </Text>
         <View style={styles.buttonContainer}>
           <Button
-            large
             onPress={() => navigate('CreateGame')}
             color="#000"
-            title="Create"
+            title="Create."
             backgroundColor="transparent"
-            fontFamily="cortado"
-            fontSize={36}
+            fontSize={26}
+            fontFamily="essonnes"
           />
           <Button
-            large
             onPress={() => navigate('JoinGame')}
             color="#000"
-            title="Join"
+            title="Join."
             backgroundColor="transparent"
-            fontFamily="cortado"
-            fontSize={36}
+            fontSize={26}
+            fontFamily="essonnes"
           />
         </View>
       </View>

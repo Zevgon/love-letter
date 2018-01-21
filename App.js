@@ -28,7 +28,10 @@ export default class App extends React.Component {
   }
   async componentWillMount() {
     await Font.loadAsync({
-      cortado: require('./assets/fonts/cortado.otf'),
+      essonnes: require('./assets/fonts/essonnes.otf'),
+    });
+    await Font.loadAsync({
+      essonneslight: require('./assets/fonts/essonnes-light.otf'),
     });
     this.setState({
       loading: false,
