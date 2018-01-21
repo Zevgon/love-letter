@@ -11,8 +11,8 @@ class WaitingRoomScreen extends React.Component {
     return (
       <View style={styles.screen}>
         {this.props.players.map((player) => (
-          <Text key={player}>
-            {player}
+          <Text key={player.id}>
+            {player.name}
           </Text>
         ))}
       </View>
