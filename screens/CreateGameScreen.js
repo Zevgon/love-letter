@@ -20,7 +20,7 @@ class CreateGameScreen extends React.Component {
       name: '',
       error: null,
     };
-    this.props.socket.onmessage('receiveGameId', (gameId) => {
+    this.props.socket.on('receiveGameId', (gameId) => {
       this.props.dispatch(receiveGameId(gameId));
     });
   }
@@ -56,7 +56,7 @@ class CreateGameScreen extends React.Component {
             onChangeText={(name) => this.setState({ name, error: null })}
             value={this.state.name}
             style={styles.textField}
-            placeholder="What's your name?"
+            placeholder="Name."
           />
         </View>
         <View style={styles.wideButtonContainer}>

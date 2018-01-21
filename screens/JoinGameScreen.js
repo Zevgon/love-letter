@@ -18,10 +18,10 @@ export default class JoinGameScreen extends React.Component {
     };
   }
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     return (
       <View style={styles.screen}>
-        <Text style={styles.subtitle}>Join Game</Text>
+        <Text style={styles.subtitle}>Join Game.</Text>
         <View style={[styles.textFieldsBlock, styles.largeMargin]}>
           <View style={[styles.textFieldContainer, styles.largeMarginBottom]}>
             <TextInput
@@ -29,7 +29,7 @@ export default class JoinGameScreen extends React.Component {
               onChangeText={(room) => this.setState({ room, error: null })}
               value={this.state.room}
               style={styles.textField}
-              placeholder="What's the room code?"
+              placeholder="Room # (four digits)."
             />
           </View>
           <View style={styles.textFieldContainer}>
@@ -38,7 +38,7 @@ export default class JoinGameScreen extends React.Component {
               onChangeText={(name) => this.setState({ name, error: null })}
               value={this.state.name}
               style={styles.textField}
-              placeholder="What's your name?"
+              placeholder="Name."
             />
           </View>
         </View>
@@ -53,7 +53,7 @@ export default class JoinGameScreen extends React.Component {
             fontFamily="essonnes"
           />
           <Button
-            onPress={() => this.props.navigation.goBack(null)}
+            onPress={() => navigation.goBack(null)}
             color="#000"
             title="Back."
             backgroundColor="transparent"

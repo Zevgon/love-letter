@@ -93,6 +93,17 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     backgroundColor: '#ffbbbb',
   },
+  contentMedium: {
+    fontFamily: 'essonnes',
+    fontSize: 22,
+  },
+  marginSmall: {
+    margin: 10,
+  },
+  disabledStyle: {
+    backgroundColor: 'transparent',
+    opacity: 0.2,
+  },
 });
 
 export default styles;

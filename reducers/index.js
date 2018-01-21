@@ -26,7 +26,7 @@ const gameReducer = (state = null, action) => {
   }
 };
 
-const socketReducer = () => new SocketIoClient('ws://172.20.10.7:3000');
+const socketReducer = () => new SocketIoClient('http://localhost:3000');
 
 export default combineReducers({
   players: playerReducer,
