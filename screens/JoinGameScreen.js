@@ -47,6 +47,7 @@ class JoinGameScreen extends React.Component {
               onChangeText={(room) => this.setState({ room, error: null })}
               value={this.props.game.id}
               style={styles.textField}
+              keyboardType="numeric"
               placeholder="Room # (four digits)."
             />
           </View>

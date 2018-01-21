@@ -12,7 +12,7 @@ class WaitingRoomScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
-        <Text style={[styles.subtitle, styles.largeMarginBottom]}>
+        <Text style={[styles.title, styles.largeMarginBottom]}>
           {this.props.game ? this.props.game.id : null}
         </Text>
         {this.props.players.map((player) => (
