@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 import styles from './styles';
+import socket from '../socket';
 
-export default class JoinGameScreen extends React.Component {
+class JoinGameScreen extends React.Component {
   static navigationOptions = {
     title: 'Join Game',
     headerStyle: { display: 'none' },
@@ -16,6 +18,22 @@ export default class JoinGameScreen extends React.Component {
       room: '',
       error: null,
     };
+  }
+  handleJoin = () => {
+    if (!this.state.name) {
+      this.setState({
+        error: 'Must specify name before joining game',
+      });
+      return;
+    } else if (!this.state.room) {
+      this.setState({
+        error: 'Must specify room before joining game',
+      });
+      return;
+    }
+
+    socket.emit('join', { id: this.state.room });
+    this.props.navigation.navigate('WaitingRoom');
   }
   render() {
     const { navigation } = this.props;
@@ -45,7 +63,7 @@ export default class JoinGameScreen extends React.Component {
 
         <View style={styles.wideButtonContainer}>
           <Button
-            onPress={() => this.props.dispatch(receivePlayers[this.state.name])}
+            onPress={this.handleJoin}
             color="#000"
             title="Join."
             backgroundColor="transparent"
@@ -70,3 +88,10 @@ JoinGameScreen.propTypes = {
   navigation: PropTypes.object,
   navigate: PropTypes.func,
 };
+
+const mapStateToProps = (state) => ({
+  players: state.players,
+  game: state.game,
+});
+
+export default connect(mapStateToProps)(JoinGameScreen);

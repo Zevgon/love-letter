@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import { combineReducers } from 'redux';
-import SocketIoClient from 'socket.io-client';
 import {
   RECEIVE_PLAYERS,
   ADD_PLAYER,
-  RECEIVE_GAME_ID,
+  RECEIVE_GAME_DATA,
 } from './constants';
 
 const playerReducer = (state = [], action) => {
@@ -17,19 +17,17 @@ const playerReducer = (state = [], action) => {
   }
 };
 
-const gameReducer = (state = null, action) => {
+const gameReducer = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_GAME_ID:
-      return action.gameId;
+    case RECEIVE_GAME_DATA:
+      return _.merge({}, state, action.gameData);
     default:
       return state;
   }
 };
 
-const socketReducer = () => new SocketIoClient('http://localhost:3000');
 
 export default combineReducers({
   players: playerReducer,
-  socket: socketReducer,
   game: gameReducer,
 });

@@ -16,8 +16,8 @@ class WaitingRoomScreen extends React.Component {
           7865
         </Text>
         {this.props.players.map((player) => (
-          <Text style={[styles.contentMedium, styles.marginSmall]} key={player}>
-            {player}
+          <Text style={[styles.contentMedium, styles.marginSmall]} key={player.id}>
+            {player.name}
           </Text>
         ))}
         <View style={styles.buttonContainer}>

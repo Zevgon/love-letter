@@ -1,16 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Font } from 'expo';
-import rootReducer from './reducers/index';
+import store from './store';
 import HomeScreen from './screens/HomeScreen';
 import CreateGameScreen from './screens/CreateGameScreen';
 import JoinGameScreen from './screens/JoinGameScreen';
 import WaitingRoomScreen from './screens/WaitingRoomScreen';
-
-const store = createStore(rootReducer);
 
 export const Navigator = StackNavigator({
   Home: { screen: HomeScreen },
