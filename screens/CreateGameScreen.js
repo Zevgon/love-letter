@@ -39,30 +39,42 @@ class CreateGameScreen extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.screen}>
-        <Text style={styles.subtitle}>Create Game</Text>
-        <View style={styles.inlineContainer}>
-          <Text>
-            Name:
-          </Text>
+        <Text style={styles.subtitle}>Create Game.</Text>
+        {this.state.error &&
+          <View style={styles.errorContainer}>
+            <Text style={styles.content}>
+              {this.state.error}
+            </Text>
+          </View>
+        }
+        <View style={[styles.textFieldContainer, styles.largeMargin]}>
           <TextInput
             multiline={false}
             onChangeText={(name) => this.setState({ name, error: null })}
             value={this.state.name}
             style={styles.textField}
+            placeholder="What's your name?"
           />
         </View>
-        <View>
-          <Text>
-            {this.state.error && this.state.error}
-          </Text>
-        </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.wideButtonContainer}>
           <Button
             onPress={this.handleCreate}
-            title="Create"
-            backgroundColor="#FFFFFF"
+            color="#000"
+            title="Create."
+            backgroundColor="transparent"
+            fontSize={26}
+            fontFamily="essonnes"
+          />
+          <Button
+            onPress={() => this.props.navigation.goBack(null)}
+            color="#000"
+            title="Back."
+            backgroundColor="transparent"
+            fontSize={26}
+            fontFamily="essonnes"
           />
         </View>
       </View>
