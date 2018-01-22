@@ -5,25 +5,19 @@ import { Button } from 'react-native-elements';
 import styles from './styles';
 import socket from '../socket';
 
-class WaitingRoomScreen extends React.Component {
+class GameScreen extends React.Component {
   static navigationOptions = {
     headerStyle: { display: 'none' },
   };
-  handleStart = () => {
-    socket.emit('start');
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.game.status === 'PLAYING') {
-      nextProps.navigation.navigate('Game');
-    }
-  }
+
   render() {
-    const { navigate } = this.props.navigation;
-    const { id, players } = this.props.game;
+    const {
+      id, status, players, currentPlayer,
+    } = this.props.game;
     return (
       <View style={styles.screen}>
-        <Text style={[styles.title, styles.largeMarginBottom]}>
-          {id}
+        <Text style={[styles.subtitle, styles.largeMarginBottom]}>
+          {currentPlayer ? currentPlayer.name : null}
         </Text>
         {players.map((player) => (
           <Text style={[styles.contentMedium, styles.marginSmall]} key={player.id}>
@@ -52,4 +46,4 @@ const mapStateToProps = (state) => ({
   game: state.game,
 });
 
-export default connect(mapStateToProps)(WaitingRoomScreen);
+export default connect(mapStateToProps)(GameScreen);

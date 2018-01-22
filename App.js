@@ -8,12 +8,14 @@ import HomeScreen from './screens/HomeScreen';
 import CreateGameScreen from './screens/CreateGameScreen';
 import JoinGameScreen from './screens/JoinGameScreen';
 import WaitingRoomScreen from './screens/WaitingRoomScreen';
+import GameScreen from './screens/GameScreen';
 
 export const Navigator = StackNavigator({
   Home: { screen: HomeScreen },
   CreateGame: { screen: CreateGameScreen },
   JoinGame: { screen: JoinGameScreen },
   WaitingRoom: { screen: WaitingRoomScreen },
+  Game: { screen: GameScreen },
 });
 
 export default class App extends React.Component {
