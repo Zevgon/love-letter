@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { View, Text, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import {
+  setName,
+} from '../reducers/actions';
 import styles from './styles';
 import socket from '../socket';
 
@@ -31,7 +34,7 @@ class JoinGameScreen extends React.Component {
       });
       return;
     }
-
+    this.props.dispatch(setName(this.state.name));
     socket.emit('join', { id: this.state.gameIdInput, name: this.state.name });
     this.props.navigation.navigate('WaitingRoom');
   }
@@ -62,7 +65,7 @@ class JoinGameScreen extends React.Component {
           </View>
         </View>
 
-        <View style={styles.wideButtonContainer}>
+        <View style={styles.leftAlignNarrowContainer}>
           <Button
             onPress={this.handleJoin}
             color="#000"

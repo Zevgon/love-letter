@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import socket from '../socket';
 import {
-  addPlayer,
+  setName,
 } from '../reducers/actions';
 import styles from './styles';
 
@@ -29,7 +29,7 @@ class CreateGameScreen extends React.Component {
       });
       return;
     }
-
+    this.props.dispatch(setName(this.state.name));
     socket.emit('create', this.state.name);
     this.props.navigation.navigate('WaitingRoom');
   }
@@ -54,7 +54,7 @@ class CreateGameScreen extends React.Component {
             placeholder="Name."
           />
         </View>
-        <View style={styles.wideButtonContainer}>
+        <View style={styles.leftAlignNarrowContainer}>
           <Button
             onPress={this.handleCreate}
             color="#000"

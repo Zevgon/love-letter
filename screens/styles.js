@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     margin: 20,
     width: '70%',
   },
-  wideButtonContainer: {
+  leftAlignNarrowContainer: {
     alignItems: 'flex-start',
     width: '70%',
   },
@@ -97,12 +97,22 @@ const styles = StyleSheet.create({
     fontFamily: 'essonnes',
     fontSize: 22,
   },
+  contentLarge: {
+    fontFamily: 'essonnes',
+    fontSize: 26,
+  },
   marginSmall: {
     margin: 10,
   },
   disabledStyle: {
     backgroundColor: 'transparent',
     opacity: 0.2,
+  },
+  leftAlign: {
+    alignItems: 'flex-start',
+  },
+  contentContainer: {
+    width: '80%',
   },
 });
 
