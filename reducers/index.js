@@ -6,6 +6,7 @@ import {
 } from './constants';
 
 const gameReducer = (state = { id: null, players: [], status: null }, action) => {
+  console.log(action.gameStats);
   switch (action.type) {
     case RECEIVE_GAME_STATS:
       return _.merge({}, state, action.gameStats);
