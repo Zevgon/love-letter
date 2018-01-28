@@ -112,12 +112,14 @@ class GameScreen extends React.Component {
           {players.map((player) => (
             <Button
               key={player.name}
+              disabled={player.isProtected}
               color="#000"
               title={player.name}
               backgroundColor={this.state.selectedTarget === player.name ? '#fff' : 'transparent'}
               fontSize={22}
               fontFamily="essonnes"
-              iconRight={player.name === name ? { name: 'user', type: 'feather', color: '#000' } : null}
+              icon={player.name === name ? { name: 'user', type: 'feather', color: '#000' } : null}
+              iconRight={player.isProtected ? { name: 'shield', type: 'entypo', color: '#000' } : null}
               onPress={() => { this.handleTargetSelect(player.name); }}
             />
           ))}
@@ -132,7 +134,7 @@ class GameScreen extends React.Component {
                 backgroundColor={this.state.changeHand ? '#fff' : 'transparent'}
                 fontSize={26}
                 fontFamily="essonnes"
-                onPress={() => { this.handleAct(currentPlayer.card, true); }}
+                onPress={() => { this.handleAct(currentPlayer.cardId, true); }}
               />
               <Button
                 color="#000"
@@ -165,14 +167,16 @@ class GameScreen extends React.Component {
               <Picker.Item label="Princess" value={PRINCESS} />
             </Picker>
           }
-          <Button
-            color="#000"
-            title="Confirm."
-            backgroundColor="transparent"
-            fontSize={26}
-            fontFamily="essonnes"
-            onPress={this.handlePlayCard}
-          />
+          {current &&
+            <Button
+              color="#000"
+              title="Confirm."
+              backgroundColor="transparent"
+              fontSize={26}
+              fontFamily="essonnes"
+              onPress={this.handlePlayCard}
+            />
+          }
         </View>
       </View>
     );
