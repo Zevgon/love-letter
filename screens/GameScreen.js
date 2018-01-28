@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Picker } from 'react-native';
 import { Button } from 'react-native-elements';
+import HistoryModal from './HistoryModal';
+import { showHistory } from '../reducers/actions';
 import styles from './styles';
 import socket from '../socket';
 import {
@@ -30,6 +32,12 @@ class GameScreen extends React.Component {
     guess: '2',
   };
 
+  validTargetExists() {
+    const { players } = this.props.game;
+    const numTargets = players.filter((player) => (!player.lost && !player.isProtected)).length;
+    return this.state.allowChooseSelf ? numTargets > 0 : numTargets > 1;
+  }
+
   handleTargetSelect(targetName) {
     if (!this.state.shouldChooseTarget) {
       return;
@@ -38,7 +46,6 @@ class GameScreen extends React.Component {
       return;
     }
     this.setState({
-      shouldChooseTarget: false,
       selectedTarget: targetName,
       allowChooseSelf: null,
     });
@@ -68,6 +75,10 @@ class GameScreen extends React.Component {
       case PRINCESS:
       case COUNTESS:
       case HANDMAID:
+        this.setState({
+          shouldChooseTarget: false,
+          allowChooseSelf: null,
+        });
         break;
       case GUARD:
         this.setState({
@@ -81,7 +92,7 @@ class GameScreen extends React.Component {
   }
 
   handlePlayCard = () => {
-    if (this.state.shouldChooseTarget && !this.state.selectedTarget) return;
+    if (this.state.shouldChooseTarget && !this.state.selectedTarget && this.validTargetExists()) return;
 
     socket.emit('act', {
       changeHand: this.state.changeHand,
@@ -90,10 +101,18 @@ class GameScreen extends React.Component {
     });
   }
 
+  openModal = () => {
+    this.setState({ modalVisible: true });
+  }
+
+  closeModal = () => {
+    this.setState({ modalVisible: false });
+  }
+
   render() {
     const {
       game: {
-        id, status, players, currentPlayer, currentCardId,
+        id, status, players, currentPlayer, currentCardId, history,
       },
       name,
     } = this.props;
@@ -101,6 +120,7 @@ class GameScreen extends React.Component {
     const current = name === currentPlayer.name;
     return (
       <View style={styles.screen}>
+        <HistoryModal show history={history} />
         <Text style={styles.content}>
           {currentPlayer ? 'Current Player:' : null}
         </Text>
@@ -178,6 +198,10 @@ class GameScreen extends React.Component {
             />
           }
         </View>
+        <Button
+          onPress={() => this.props.dispatch(showHistory())}
+          title="Show history"
+        />
       </View>
     );
   }
