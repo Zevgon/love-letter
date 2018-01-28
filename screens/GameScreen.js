@@ -47,7 +47,6 @@ class GameScreen extends React.Component {
     }
     this.setState({
       selectedTarget: targetName,
-      allowChooseSelf: null,
     });
   }
 
@@ -93,7 +92,14 @@ class GameScreen extends React.Component {
 
   handlePlayCard = () => {
     if (this.state.shouldChooseTarget && !this.state.selectedTarget && this.validTargetExists()) return;
-
+    this.setState({
+      shouldChooseTarget: false,
+      allowChooseSelf: null,
+      selectedTarget: null,
+      chosenCardId: null,
+      changeHand: null,
+      guess: '2',
+    });
     socket.emit('act', {
       changeHand: this.state.changeHand,
       targetName: this.state.selectedTarget,

@@ -3,6 +3,7 @@ import { View, Text, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { hideHistory } from '../reducers/actions';
+import { CARD_ID_TO_NAME, GUARD } from '../constants';
 import styles from './styles';
 
 class HistoryModal extends React.Component {
@@ -14,7 +15,15 @@ class HistoryModal extends React.Component {
         onRequestClose={this.closeModal}
       >
         <View style={styles.screen}>
-          <Text style={styles.content}>This is content inside of modal component</Text>
+          <View style={styles.leftAlign}>
+            {this.props.history.map((event, idx) => (
+              <Text style={styles.content} key={`hi-${idx}`}>
+                {event.player.name} played {event.chosenCard.name}
+                {event.targetName && `on ${event.data.targetName}`}
+                {event.chosenCard.id === GUARD && ` (guess: ${CARD_ID_TO_NAME[event.data.guessCardId]})`}
+              </Text>
+            ))}
+          </View>
           <Button
             onPress={() => this.props.dispatch(hideHistory())}
             title="Close modal"
