@@ -4,6 +4,17 @@ import { View, Text, Picker } from 'react-native';
 import { Button } from 'react-native-elements';
 import styles from './styles';
 import socket from '../socket';
+import {
+  GUARD,
+  PRIEST,
+  BARON,
+  HANDMAID,
+  PRINCE,
+  KING,
+  COUNTESS,
+  PRINCESS,
+  CARD_ID_TO_NAME,
+} from '../constants';
 
 class GameScreen extends React.Component {
   static navigationOptions = {
@@ -11,23 +22,23 @@ class GameScreen extends React.Component {
   };
 
   state = {
-    chooseTarget: false,
+    shouldChooseTarget: false,
     allowChooseSelf: null,
     selectedTarget: null,
-    selectedCard: null,
+    chosenCardId: null,
     changeHand: null,
     guess: '2',
   };
 
   handleTargetSelect(targetName) {
-    if (!this.state.chooseTarget) {
+    if (!this.state.shouldChooseTarget) {
       return;
     }
     if (!this.state.allowChooseSelf && targetName === this.props.name) {
       return;
     }
     this.setState({
-      chooseTarget: false,
+      shouldChooseTarget: false,
       selectedTarget: targetName,
       allowChooseSelf: null,
     });
@@ -35,32 +46,32 @@ class GameScreen extends React.Component {
 
   handleAct(chosenCardId, changeHand) {
     this.setState({
-      selectedCard: chosenCardId,
+      chosenCardId,
       changeHand,
       selectedTarget: null,
     });
     switch (chosenCardId) {
-      case 'Priest':
-      case 'Baron':
-      case 'King':
+      case PRIEST:
+      case BARON:
+      case KING:
         this.setState({
-          chooseTarget: true,
+          shouldChooseTarget: true,
           allowChooseSelf: false,
         });
         break;
-      case 'Prince':
+      case PRINCE:
         this.setState({
-          chooseTarget: true,
+          shouldChooseTarget: true,
           allowChooseSelf: true,
         });
         break;
-      case 'Princess':
-      case 'Countess':
-      case 'Handmaid':
+      case PRINCESS:
+      case COUNTESS:
+      case HANDMAID:
         break;
-      case 'Guard':
+      case GUARD:
         this.setState({
-          chooseTarget: true,
+          shouldChooseTarget: true,
           allowChooseSelf: false,
         });
         break;
@@ -70,6 +81,8 @@ class GameScreen extends React.Component {
   }
 
   handlePlayCard = () => {
+    if (this.state.shouldChooseTarget && !this.state.selectedTarget) return;
+
     socket.emit('act', {
       changeHand: this.state.changeHand,
       targetName: this.state.selectedTarget,
@@ -115,7 +128,7 @@ class GameScreen extends React.Component {
               <Text style={styles.content}>Select a card:</Text>
               <Button
                 color="#000"
-                title={currentPlayer.card}
+                title={currentPlayer.cardName}
                 backgroundColor={this.state.changeHand ? '#fff' : 'transparent'}
                 fontSize={26}
                 fontFamily="essonnes"
@@ -123,32 +136,35 @@ class GameScreen extends React.Component {
               />
               <Button
                 color="#000"
-                title={currentCardId}
+                title={CARD_ID_TO_NAME[currentCardId]}
                 backgroundColor={this.state.changeHand === false ? '#fff' : 'transparent'}
                 fontSize={26}
                 fontFamily="essonnes"
                 onPress={() => { this.handleAct(currentCardId, false); }}
               />
             </View>
-          ) : (<View style={[styles.leftAlign]}>
-            <Text style={styles.content}>Your hand:</Text>
-            <Text style={[styles.contentLarge, styles.marginSmall]}>{self.card}</Text>
-          </View>)}
+          ) : (
+            <View style={[styles.leftAlign]}>
+              <Text style={styles.content}>Your hand:</Text>
+              <Text style={[styles.contentLarge, styles.marginSmall]}>{self.cardName}</Text>
+            </View>)}
         </View>
         <View style={{ alignItems: 'flex-start' }}>
-          <Picker
-            selectedValue={this.state.guess}
-            onValueChange={(itemValue) => this.setState({ guess: itemValue })}
-            style={{ width: 150, height: 150 }}
-          >
-            <Picker.Item label="Priest" value="2" />
-            <Picker.Item label="Baron" value="3" />
-            <Picker.Item label="Handmaid" value="4" />
-            <Picker.Item label="Prince" value="5" />
-            <Picker.Item label="King" value="6" />
-            <Picker.Item label="Countess" value="7" />
-            <Picker.Item label="Princess" value="8" />
-          </Picker>
+          {this.state.chosenCardId === GUARD &&
+            <Picker
+              selectedValue={this.state.guess}
+              onValueChange={(itemValue) => this.setState({ guess: itemValue })}
+              style={{ width: 150, height: 150 }}
+            >
+              <Picker.Item label="Priest" value={PRIEST} />
+              <Picker.Item label="Baron" value={BARON} />
+              <Picker.Item label="Handmaid" value={HANDMAID} />
+              <Picker.Item label="Prince" value={PRINCE} />
+              <Picker.Item label="King" value={KING} />
+              <Picker.Item label="Countess" value={COUNTESS} />
+              <Picker.Item label="Princess" value={PRINCESS} />
+            </Picker>
+          }
           <Button
             color="#000"
             title="Confirm."
