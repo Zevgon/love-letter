@@ -115,6 +115,15 @@ class GameScreen extends React.Component {
     this.setState({ modalVisible: false });
   }
 
+  getRightIcon = (player) => {
+    if (player.isProtected) {
+      return { name: 'shield', type: 'entypo', color: '#000' };
+    } else if (player.lost) {
+      return { name: 'cross', type: 'entypo', color: '#000' };
+    }
+    return null;
+  }
+
   render() {
     const {
       game: {
@@ -138,14 +147,14 @@ class GameScreen extends React.Component {
           {players.map((player) => (
             <Button
               key={player.name}
-              disabled={player.isProtected}
+              disabled={player.isProtected || player.lost}
               color="#000"
               title={player.name}
               backgroundColor={this.state.selectedTarget === player.name ? '#fff' : 'transparent'}
               fontSize={22}
               fontFamily="essonnes"
               icon={player.name === name ? { name: 'user', type: 'feather', color: '#000' } : null}
-              iconRight={player.isProtected ? { name: 'shield', type: 'entypo', color: '#000' } : null}
+              iconRight={this.getRightIcon(player)}
               onPress={() => { this.handleTargetSelect(player.name); }}
             />
           ))}

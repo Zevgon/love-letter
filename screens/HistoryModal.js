@@ -19,7 +19,7 @@ class HistoryModal extends React.Component {
             {this.props.history.map((event, idx) => (
               <Text style={styles.content} key={`hi-${idx}`}>
                 {event.player.name} played {event.chosenCard.name}
-                {event.targetName && `on ${event.data.targetName}`}
+                {event.data.targetName && ` on ${event.data.targetName}`}
                 {event.chosenCard.id === GUARD && ` (guess: ${CARD_ID_TO_NAME[event.data.guessCardId]})`}
               </Text>
             ))}
