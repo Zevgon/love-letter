@@ -61,6 +61,7 @@ class JoinGameScreen extends React.Component {
               value={this.state.name}
               style={styles.textField}
               placeholder="Name."
+              onSubmitEditing={this.handleJoin}
             />
           </View>
         </View>
