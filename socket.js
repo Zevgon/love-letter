@@ -4,7 +4,7 @@ import {
   receiveGameStats,
 } from './reducers/actions';
 
-const socket = new SocketIoClient('http://172.20.118.115:3000');
+const socket = new SocketIoClient('http://172.20.118.123:3000');
 
 socket.on('gameStats', (gameStats) => {
   store.dispatch(receiveGameStats(gameStats));
