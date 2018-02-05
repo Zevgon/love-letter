@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Picker } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Picker } from 'react-native-picker-dropdown';
 import { Button } from 'react-native-elements';
 import HistoryModal from './HistoryModal';
 import { showHistory } from '../reducers/actions';
@@ -21,6 +22,7 @@ import {
 class GameScreen extends React.Component {
   static navigationOptions = {
     headerStyle: { display: 'none' },
+    gesturesEnabled: false,
   };
 
   state = {
@@ -29,7 +31,7 @@ class GameScreen extends React.Component {
     selectedTarget: null,
     chosenCardId: null,
     changeHand: null,
-    guess: '2',
+    guess: PRIEST,
   };
 
   validTargetExists() {
@@ -133,6 +135,13 @@ class GameScreen extends React.Component {
     const current = name === currentPlayer.name;
     return (
       <View style={styles.screen}>
+        <Button
+          onPress={() => this.props.dispatch(showHistory())}
+          title="Show history"
+          fontFamily="essonnes"
+          backgroundColor="transparent"
+          color="#000"
+        />
         <HistoryModal show history={history} />
         <Text style={styles.content}>
           {currentPlayer ? 'Current Player:' : null}
@@ -194,7 +203,10 @@ class GameScreen extends React.Component {
             <Picker
               selectedValue={this.state.guess}
               onValueChange={(itemValue) => this.setState({ guess: itemValue })}
-              style={{ width: 150, height: 150 }}
+              style={{ alignSelf: 'stretch', backgroundColor: 'transparent', height: 50 }}
+              prompt="Select your guess"
+              textStyle={{ fontSize: 22, fontFamily: 'essonnes' }}
+              cancel
             >
               <Picker.Item label="Priest" value={PRIEST} />
               <Picker.Item label="Baron" value={BARON} />
@@ -216,10 +228,7 @@ class GameScreen extends React.Component {
             />
           }
         </View>
-        <Button
-          onPress={() => this.props.dispatch(showHistory())}
-          title="Show history"
-        />
+
       </View>
     );
   }
