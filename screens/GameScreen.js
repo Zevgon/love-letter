@@ -93,7 +93,9 @@ class GameScreen extends React.Component {
   }
 
   handlePlayCard = () => {
-    if (this.state.shouldChooseTarget && !this.state.selectedTarget && this.validTargetExists()) return;
+    if (this.state.shouldChooseTarget && !this.state.selectedTarget && this.validTargetExists()) {
+      return;
+    }
     this.setState({
       shouldChooseTarget: false,
       allowChooseSelf: null,
@@ -107,14 +109,6 @@ class GameScreen extends React.Component {
       targetName: this.state.selectedTarget,
       guessCardId: this.state.guess,
     });
-  }
-
-  openModal = () => {
-    this.setState({ modalVisible: true });
-  }
-
-  closeModal = () => {
-    this.setState({ modalVisible: false });
   }
 
   getRightIcon = (player) => {
@@ -132,10 +126,14 @@ class GameScreen extends React.Component {
     }
   }
 
+  handleDisabled = (maybeDisabledCardId, otherCardId) => (
+    otherCardId === COUNTESS && [KING, PRINCE].includes(maybeDisabledCardId)
+  )
+
   render() {
     const {
       game: {
-        id, status, players, currentPlayer, currentCardId, history,
+        id, status, players, currentPlayer, currentCardId, history, cardNum,
       },
       name,
     } = this.props;
@@ -156,6 +154,9 @@ class GameScreen extends React.Component {
         </Text>
         <Text style={[styles.subtitle, styles.marginSmall]}>
           {currentPlayer ? currentPlayer.name : null}
+        </Text>
+        <Text style={styles.content}>
+          Cards remaining: {cardNum}
         </Text>
         <View style={[styles.leftAlign, styles.leftAlignNarrowContainer]}>
           <Text style={styles.content}>Players:</Text>
@@ -181,6 +182,7 @@ class GameScreen extends React.Component {
               <Button
                 color="#000"
                 title={currentPlayer.cardName}
+                disabled={this.handleDisabled(currentPlayer.cardId, currentCardId)}
                 backgroundColor={this.state.changeHand ? '#fff' : 'transparent'}
                 fontSize={26}
                 fontFamily="essonnes"
@@ -189,6 +191,7 @@ class GameScreen extends React.Component {
               <Button
                 color="#000"
                 title={CARD_ID_TO_NAME[currentCardId]}
+                disabled={this.handleDisabled(currentCardId, currentPlayer.cardId)}
                 backgroundColor={this.state.changeHand === false ? '#fff' : 'transparent'}
                 fontSize={26}
                 fontFamily="essonnes"

@@ -3,10 +3,55 @@ import { View, Text, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { hideHistory } from '../reducers/actions';
-import { CARD_ID_TO_NAME, GUARD } from '../constants';
+import {
+  GUARD,
+  PRIEST,
+  BARON,
+  PRINCE,
+  CARD_ID_TO_NAME,
+} from '../constants';
 import styles from './styles';
 
 class HistoryModal extends React.Component {
+  formatEvent = (historyEvent) => {
+    console.log(historyEvent);
+    const turnPlayerName = historyEvent.player.name;
+    const cardPlayed = historyEvent.chosenCard;
+    const { targetName } = historyEvent.data;
+    const targetInfo = targetName ? ` on ${targetName}` : '';
+    const guessInfo = historyEvent.chosenCard.id === GUARD ? ` (guess: ${CARD_ID_TO_NAME[historyEvent.data.guessCardId]})` : '';
+    const {
+      winnerName,
+      loserName,
+      winningCardName,
+      losingCardName,
+      targetPlayerCardName,
+    } = historyEvent.result;
+
+    let resultInfo = '';
+    console.log('card played id', cardPlayed.id);
+    console.log('priest', PRIEST);
+    switch (cardPlayed.id) {
+      case PRIEST:
+        if (this.props.name === turnPlayerName) {
+          resultInfo = targetPlayerCardName ? `${targetName}'s card: ${targetPlayerCardName}` : '';
+        }
+        break;
+      case BARON:
+        if ([winnerName, loserName].includes(this.props.name)) {
+          resultInfo = winnerName ? `${winnerName} (${winningCardName}) beat ${loserName} (${losingCardName})` : '';
+        }
+        break;
+      case PRINCE:
+        resultInfo = `${targetName} discarded ${targetPlayerCardName}`;
+        break;
+      default:
+        resultInfo = '';
+    }
+    const loseInfo = loserName ? ` ${loserName} (${losingCardName}) was eliminated` : '';
+    return `${turnPlayerName} played ${cardPlayed.name}${targetInfo}${guessInfo}. ${resultInfo} ${loseInfo}`;
+  }
+
   render() {
     return (
       <Modal
@@ -16,11 +61,9 @@ class HistoryModal extends React.Component {
       >
         <View style={styles.screen}>
           <View style={styles.leftAlign}>
-            {this.props.history.map((event, idx) => (
+            {this.props.history.map((historyEvent, idx) => (
               <Text style={styles.content} key={`hi-${idx}`}>
-                {event.player.name} played {event.chosenCard.name}
-                {event.data.targetName && ` on ${event.data.targetName}`}
-                {event.chosenCard.id === GUARD && ` (guess: ${CARD_ID_TO_NAME[event.data.guessCardId]})`}
+                {this.formatEvent(historyEvent)}
               </Text>
             ))}
           </View>
@@ -38,8 +81,9 @@ class HistoryModal extends React.Component {
   }
 }
 
-const mapStateToProps = ({ showHistory }) => ({
+const mapStateToProps = ({ showHistory, name }) => ({
   showHistory,
+  name,
 });
 
 export default connect(mapStateToProps)(HistoryModal);

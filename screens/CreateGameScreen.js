@@ -29,8 +29,9 @@ class CreateGameScreen extends React.Component {
       });
       return;
     }
-    this.props.dispatch(setName(this.state.name));
-    socket.emit('create', this.state.name);
+    const name = this.state.name.trim();
+    this.props.dispatch(setName(name));
+    socket.emit('create', name);
     this.props.navigation.navigate('WaitingRoom');
   }
 
