@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Picker } from 'react-native-picker-dropdown';
 import { Button } from 'react-native-elements';
 import HistoryModal from './HistoryModal';
@@ -124,6 +124,12 @@ class GameScreen extends React.Component {
       return { name: 'cross', type: 'entypo', color: '#000' };
     }
     return null;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.game.status === 'OVER' && nextProps.game.status !== this.props.game.status) {
+      nextProps.navigation.navigate('GameOver');
+    }
   }
 
   render() {
