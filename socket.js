@@ -1,15 +1,13 @@
 import SocketIoClient from 'socket.io-client';
-import store from './store';
-import {
-  receiveGameStats,
-} from './reducers/actions';
 
-// const socket = new SocketIoClient('http://138.68.22.85:3000');
+const BACKEND_URL = 'http://138.68.22.85:3000';
+let socket = null;
 
-const socket = new SocketIoClient('http://192.168.1.206:3000');
+const getSocket = () => {
+  if (socket === null) {
+    socket = new SocketIoClient(BACKEND_URL);
+  }
+  return socket;
+};
 
-socket.on('gameStats', (gameStats) => {
-  store.dispatch(receiveGameStats(gameStats));
-});
-
-export default socket;
+export default getSocket();

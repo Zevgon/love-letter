@@ -14,7 +14,6 @@ import styles from './styles';
 
 class HistoryModal extends React.Component {
   formatEvent = (historyEvent) => {
-    console.log(historyEvent);
     const turnPlayerName = historyEvent.player.name;
     const cardPlayed = historyEvent.chosenCard;
     const { targetName } = historyEvent.data;
@@ -29,8 +28,6 @@ class HistoryModal extends React.Component {
     } = historyEvent.result;
 
     let resultInfo = '';
-    console.log('card played id', cardPlayed.id);
-    console.log('priest', PRIEST);
     switch (cardPlayed.id) {
       case PRIEST:
         if (this.props.name === turnPlayerName) {

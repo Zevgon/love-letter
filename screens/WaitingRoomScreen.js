@@ -9,16 +9,18 @@ class WaitingRoomScreen extends React.Component {
   static navigationOptions = {
     headerStyle: { display: 'none' },
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.game.status === 'PLAYING') {
+      nextProps.navigation.replace('Game');
+    }
+  }
+
   handleStart = () => {
     socket.emit('start');
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.game.status === 'PLAYING') {
-      nextProps.navigation.navigate('Game');
-    }
-  }
+
   render() {
-    const { navigate } = this.props.navigation;
     const { id, players } = this.props.game;
     return (
       <View style={styles.screen}>

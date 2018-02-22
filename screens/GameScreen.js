@@ -122,7 +122,7 @@ class GameScreen extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.game.status === 'OVER' && nextProps.game.status !== this.props.game.status) {
-      nextProps.navigation.navigate('GameOver');
+      nextProps.navigation.replace('GameOver');
     }
   }
 

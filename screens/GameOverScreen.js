@@ -17,12 +17,12 @@ class GameOverScreen extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.game.status === 'PLAYING' && nextProps.game.status !== this.props.game.status) {
-      nextProps.navigation.navigate('Game');
+      nextProps.navigation.replace('Game');
     }
   }
 
   render() {
-    const { navigation: { navigate }, game: { id, players }, name } = this.props;
+    const { game: { id, players }, name } = this.props;
     const self = players.find((player) => name === player.name);
     return (
       <View style={styles.screen}>

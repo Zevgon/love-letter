@@ -37,7 +37,7 @@ class JoinGameScreen extends React.Component {
     const name = this.state.name.trim();
     this.props.dispatch(setName(name));
     socket.emit('join', { id: this.state.gameIdInput, name });
-    this.props.navigation.navigate('WaitingRoom');
+    this.props.navigation.replace('WaitingRoom');
   }
   render() {
     const { navigation } = this.props;
@@ -92,7 +92,6 @@ class JoinGameScreen extends React.Component {
 
 JoinGameScreen.propTypes = {
   navigation: PropTypes.object,
-  navigate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

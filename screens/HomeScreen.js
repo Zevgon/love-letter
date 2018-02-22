@@ -11,7 +11,7 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     return (
       <View style={styles.screen}>
         <Text style={styles.title}>
@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
         </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => navigate('CreateGame')}
+            onPress={() => navigation.replace('CreateGame')}
             color="#000"
             title="Create."
             backgroundColor="transparent"
@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
             fontFamily="essonnes"
           />
           <Button
-            onPress={() => navigate('JoinGame')}
+            onPress={() => navigation.replace('JoinGame')}
             color="#000"
             title="Join."
             backgroundColor="transparent"
@@ -42,5 +42,4 @@ export default class HomeScreen extends React.Component {
 
 HomeScreen.propTypes = {
   navigation: PropTypes.object,
-  navigate: PropTypes.func,
 };

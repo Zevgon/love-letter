@@ -8,7 +8,7 @@ import {
 } from './constants';
 
 const gameReducer = (state = { id: null, players: [], status: null }, action) => {
-  console.log(action.gameStats);
+  console.log('reduce', action.type)
   switch (action.type) {
     case RECEIVE_GAME_STATS:
       return _.assign({}, state, action.gameStats);

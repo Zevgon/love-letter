@@ -32,7 +32,7 @@ class CreateGameScreen extends React.Component {
     const name = this.state.name.trim();
     this.props.dispatch(setName(name));
     socket.emit('create', name);
-    this.props.navigation.navigate('WaitingRoom');
+    this.props.navigation.replace('WaitingRoom');
   }
 
   render() {
@@ -80,7 +80,6 @@ class CreateGameScreen extends React.Component {
 
 CreateGameScreen.propTypes = {
   navigation: PropTypes.object,
-  navigate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
