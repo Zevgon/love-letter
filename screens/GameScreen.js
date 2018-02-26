@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Picker } from 'react-native-picker-dropdown';
@@ -20,6 +21,13 @@ import {
 } from '../constants';
 
 class GameScreen extends React.Component {
+  static propTypes = {
+    game: PropTypes.object,
+    navigation: PropTypes.object,
+    name: PropTypes.string,
+    dispatch: PropTypes.func,
+  };
+
   static navigationOptions = {
     headerStyle: { display: 'none' },
     gesturesEnabled: false,
@@ -34,10 +42,19 @@ class GameScreen extends React.Component {
     guess: PRIEST,
   };
 
-  validTargetExists() {
-    const { players } = this.props.game;
-    const numTargets = players.filter((player) => (!player.lost && !player.isProtected)).length;
-    return this.state.allowChooseSelf ? numTargets > 0 : numTargets > 1;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.game.status === 'OVER' && nextProps.game.status !== this.props.game.status) {
+      nextProps.navigation.replace('GameOver');
+    }
+  }
+
+  getRightIcon = (player) => {
+    if (player.isProtected) {
+      return { name: 'shield', type: 'entypo', color: '#000' };
+    } else if (player.lost) {
+      return { name: 'cross', type: 'entypo', color: '#000' };
+    }
+    return null;
   }
 
   handleTargetSelect(targetName) {
@@ -111,29 +128,20 @@ class GameScreen extends React.Component {
     });
   }
 
-  getRightIcon = (player) => {
-    if (player.isProtected) {
-      return { name: 'shield', type: 'entypo', color: '#000' };
-    } else if (player.lost) {
-      return { name: 'cross', type: 'entypo', color: '#000' };
-    }
-    return null;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.game.status === 'OVER' && nextProps.game.status !== this.props.game.status) {
-      nextProps.navigation.replace('GameOver');
-    }
-  }
-
   handleDisabled = (maybeDisabledCardId, otherCardId) => (
     otherCardId === COUNTESS && [KING, PRINCE].includes(maybeDisabledCardId)
   )
 
+  validTargetExists() {
+    const { players } = this.props.game;
+    const numTargets = players.filter((player) => (!player.lost && !player.isProtected)).length;
+    return this.state.allowChooseSelf ? numTargets > 0 : numTargets > 1;
+  }
+
   render() {
     const {
       game: {
-        id, status, players, currentPlayer, currentCardId, history, cardNum,
+        players, currentPlayer, currentCardId, history, cardNum,
       },
       name,
     } = this.props;

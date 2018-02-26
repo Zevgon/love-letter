@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -6,14 +7,16 @@ import styles from './styles';
 import socket from '../socket';
 
 class GameOverScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+    game: PropTypes.object,
+    name: PropTypes.string,
+  }
+
   static navigationOptions = {
     headerStyle: { display: 'none' },
     gesturesEnabled: false,
   };
-
-  handleRestart = () => {
-    socket.emit('restart');
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.game.status === 'PLAYING' && nextProps.game.status !== this.props.game.status) {
@@ -21,8 +24,12 @@ class GameOverScreen extends React.Component {
     }
   }
 
+  handleRestart = () => {
+    socket.emit('restart');
+  }
+
   render() {
-    const { game: { id, players }, name } = this.props;
+    const { game: { players }, name } = this.props;
     const self = players.find((player) => name === player.name);
     return (
       <View style={styles.screen}>

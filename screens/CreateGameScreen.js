@@ -10,6 +10,11 @@ import {
 import styles from './styles';
 
 class CreateGameScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+    dispatch: PropTypes.func,
+  };
+
   static navigationOptions = {
     headerStyle: { display: 'none' },
   };
@@ -65,7 +70,7 @@ class CreateGameScreen extends React.Component {
             fontFamily="essonnes"
           />
           <Button
-            onPress={() => this.props.navigation.goBack(null)}
+            onPress={() => this.props.navigation.replace('Home')}
             color="#000"
             title="Back."
             backgroundColor="transparent"
@@ -77,10 +82,6 @@ class CreateGameScreen extends React.Component {
     );
   }
 }
-
-CreateGameScreen.propTypes = {
-  navigation: PropTypes.object,
-};
 
 const mapStateToProps = (state) => ({
   players: state.players,

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import styles from './styles';
-import BackgroundCircle from './BackgroundCircle';
 
 export default class HomeScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+  };
+
   static navigationOptions = {
     headerStyle: { display: 'none' },
   };
@@ -39,7 +42,3 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
-
-HomeScreen.propTypes = {
-  navigation: PropTypes.object,
-};

@@ -10,10 +10,16 @@ import styles from './styles';
 import socket from '../socket';
 
 class JoinGameScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+    dispatch: PropTypes.func,
+  };
+
   static navigationOptions = {
     title: 'Join Game',
     headerStyle: { display: 'none' },
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +28,7 @@ class JoinGameScreen extends React.Component {
       error: null,
     };
   }
+
   handleJoin = () => {
     if (!this.state.name) {
       this.setState({
@@ -39,11 +46,19 @@ class JoinGameScreen extends React.Component {
     socket.emit('join', { id: this.state.gameIdInput, name });
     this.props.navigation.replace('WaitingRoom');
   }
+
   render() {
     const { navigation } = this.props;
     return (
       <View style={styles.screen}>
         <Text style={styles.subtitle}>Join Game.</Text>
+        {this.state.error &&
+          <View style={styles.errorContainer}>
+            <Text style={styles.content}>
+              {this.state.error}
+            </Text>
+          </View>
+        }
         <View style={[styles.textFieldsBlock, styles.largeMargin]}>
           <View style={[styles.textFieldContainer, styles.largeMarginBottom]}>
             <TextInput
@@ -77,7 +92,7 @@ class JoinGameScreen extends React.Component {
             fontFamily="essonnes"
           />
           <Button
-            onPress={() => navigation.goBack(null)}
+            onPress={() => navigation.replace('Home')}
             color="#000"
             title="Back."
             backgroundColor="transparent"
@@ -89,10 +104,6 @@ class JoinGameScreen extends React.Component {
     );
   }
 }
-
-JoinGameScreen.propTypes = {
-  navigation: PropTypes.object,
-};
 
 const mapStateToProps = (state) => ({
   players: state.players,

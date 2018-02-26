@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -13,6 +14,13 @@ import {
 import styles from './styles';
 
 class HistoryModal extends React.Component {
+  static propTypes = {
+    name: PropTypes.string,
+    showHistory: PropTypes.bool,
+    history: PropTypes.array,
+    dispatch: PropTypes.func,
+  }
+
   formatEvent = (historyEvent) => {
     const turnPlayerName = historyEvent.player.name;
     const cardPlayed = historyEvent.chosenCard;
@@ -58,8 +66,8 @@ class HistoryModal extends React.Component {
       >
         <View style={styles.screen}>
           <View style={styles.leftAlign}>
-            {this.props.history.map((historyEvent, idx) => (
-              <Text style={styles.content} key={`hi-${idx}`}>
+            {this.props.history.map((historyEvent) => (
+              <Text style={styles.content} key={historyEvent.id}>
                 {this.formatEvent(historyEvent)}
               </Text>
             ))}

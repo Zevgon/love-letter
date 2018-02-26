@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -6,6 +7,11 @@ import styles from './styles';
 import socket from '../socket';
 
 class WaitingRoomScreen extends React.Component {
+  static propTypes = {
+    game: PropTypes.object,
+    navigation: PropTypes.object,
+  };
+
   static navigationOptions = {
     headerStyle: { display: 'none' },
   };
