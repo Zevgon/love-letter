@@ -26,7 +26,14 @@ class JoinGameScreen extends React.Component {
       name: '',
       gameIdInput: '',
       error: null,
+      joining: false,
     };
+    socket.on('joinError', (data) => {
+      this.setState({ error: data.error });
+    });
+    socket.on('gameStats', () => {
+      this.props.navigation.replace('WaitingRoom');
+    });
   }
 
   handleJoin = () => {
@@ -44,11 +51,11 @@ class JoinGameScreen extends React.Component {
     const name = this.state.name.trim();
     this.props.dispatch(setName(name));
     socket.emit('join', { id: this.state.gameIdInput, name });
-    this.props.navigation.replace('WaitingRoom');
   }
 
   render() {
     const { navigation } = this.props;
+    const { joining } = this.state;
     return (
       <View style={styles.screen}>
         <Text style={styles.subtitle}>Join Game.</Text>
@@ -86,10 +93,12 @@ class JoinGameScreen extends React.Component {
           <Button
             onPress={this.handleJoin}
             color="#000"
-            title="Join."
+            title={joining ? 'Joining...' : 'Join.'}
             backgroundColor="transparent"
             fontSize={26}
             fontFamily="essonnes"
+            disabled={joining}
+            disabledStyle={styles.disabledStyle}
           />
           <Button
             onPress={() => navigation.replace('Home')}
